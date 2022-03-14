@@ -27,6 +27,8 @@ for truck in range(trucksforRoutes):
     coordinateRoute = helpers.convert_route_to_coordinates(
         routeInfo, c.coordinateMap)
     optimalRoute = helpers.get_shortest_route(coordinateRoute)
+    print(optimalRoute)
     optimalRouteOrdered = helpers.get_correct_order(optimalRoute)
-    finalRoute = helpers.get_location_path(optimalRouteOrdered, coordinateRoute)
+    finalRoute = helpers.get_location_path(
+        optimalRouteOrdered, coordinateRoute)
     print(finalRoute)

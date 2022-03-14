@@ -2,6 +2,7 @@ from getpass import getpass
 from passlib.hash import bcrypt
 import pyinputplus as pyip
 import mlrose_hiive as mlrose
+import numpy as np
 from collections import OrderedDict
 import constants as c
 
@@ -120,10 +121,22 @@ def get_correct_order(route):
     else:
         reordered = []
         pickupPointIndex = orderedRoute.index(0)
-        for item in orderedRoute[pickupPointIndex:]:
-            reordered.append(item)
-        for item in orderedRoute[:pickupPointIndex]:
-            reordered.append(item)
+        dist1 = np.linalg.norm(
+            orderedRoute[pickupPointIndex]-orderedRoute[pickupPointIndex-1])
+        dist2 = np.linalg.norm(
+            orderedRoute[pickupPointIndex]-orderedRoute[pickupPointIndex+1])
+
+        if (dist2 < dist1):
+            for item in orderedRoute[pickupPointIndex:]:
+                reordered.append(item)
+            for item in orderedRoute[:pickupPointIndex]:
+                reordered.append(item)
+        else:
+            reordered.append(0)
+            for item in orderedRoute[:pickupPointIndex]:
+                reordered.append(item)
+            for item in orderedRoute[pickupPointIndex+1:]:
+                reordered.append(item)
         return reordered
 
 # Get Path with Locations

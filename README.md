@@ -1,10 +1,10 @@
 # Rutgers Delivery Tool
 
-Did the front-end. Sidhu, take it away
+Did the front-end.
+Did the back end
 
 Eoin & Awais: Unit Testing
 Akku: README Docs
-Sidhu: Back-End Algorithm
 
 ## Basic Setup
 1. [Install Poetry](https://python-poetry.org/docs/). Don't forget to add the poetry command to your PATH (Instructions to do this is given post-installation)

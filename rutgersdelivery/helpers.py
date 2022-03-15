@@ -36,13 +36,6 @@ def create_destination_list(coordinateMap):
         validValues.append(destination)
     return validValues
 
-# Reverse a Map
-
-
-def reverse_destination_map(coordinateMap):
-    invertedCoordinateMap = {v: k for k, v in coordinateMap.items()}
-    return invertedCoordinateMap
-
 # Validate that there enough trucks for routes
 
 
@@ -89,63 +82,133 @@ def get_route_info(truck, validValues):
     filteredResult = list(OrderedDict.fromkeys(routeList))
     return filteredResult
 
+# Create Dictionary of All Route Locations
+
+
+def get_coordinate_location(locations):
+    coordinateLocation = {}
+    counter = 0
+    for item in locations:
+        coordinateLocation[item] = counter
+        counter += 1
+    return coordinateLocation
+
 # Map Route to Coordinates
 
 
-def convert_route_to_coordinates(routeInfo, coordinateMap):
-    routeCoordinates = []
+def convert_route_to_coordinates(routeInfo):
+    routeCoordinates = {}
     for destination in routeInfo:
-        destinationCoordinate = coordinateMap[destination]
-        routeCoordinates.append(destinationCoordinate)
+        routeCoordinates[destination] = c.coordinateMap[destination]
     return routeCoordinates
 
-# Get Shortest Path
+# Get Distance Between Two Points
 
 
-def get_shortest_route(route):
-    problem_fit = mlrose.TSPOpt(length=len(
-        route), coords=route, maximize=False)
+def get_distance(point1, point2):
+    return abs(point1[0]-point2[0]) + abs(point1[1]-point2[1])
+
+# Generate Weighted Graph of Route
+
+
+def generate_graph(coordinateLocations, coordinateMap):
+    output = []
+    v = list(coordinateMap.values())
+    k = list(coordinateMap.keys())
+    i = 0
+    while (i < len(v)):
+        for item in v[i+1:]:
+            distance = get_distance(v[i], item)
+            output.append((coordinateLocations.get(
+                k[i]), coordinateLocations.get(k[v.index(item)]), distance))
+        i += 1
+    return output
+
+# Add Dummy to Graph
+
+
+def insert_dummy(start, loc, coordinateLocations):
+    dummyInt = len(coordinateLocations.keys())
+    for k, v in coordinateLocations.items():
+        if (start == k):
+            loc.append((v, dummyInt, 0.1))
+        elif (k == "Truck Depot"):
+            loc.append((v, dummyInt, 0.1))
+        else:
+            loc.append((v, dummyInt, 100000))
+    return loc
+
+# Get Shortest Path (With Dummy Node)
+
+
+def get_shortest_route(dist_list, lenList):
+    fitness_coords = mlrose.TravellingSales(distances=dist_list)
+    problem_fit = mlrose.TSPOpt(
+        length=lenList, fitness_fn=fitness_coords, maximize=False)
     best_state, best_fitness, x = mlrose.genetic_alg(
-        problem_fit, mutation_prob=0.2, max_attempts=100, random_state=2)
+        problem_fit, random_state=2)
     return best_state
 
-# Reorder Path
+# Reorder Path with Pickup Point and Last Point (Without Dummy Node)
 
 
-def get_correct_order(route):
+def get_correct_order(route, last, indexes):
     orderedRoute = route.tolist()
+    orderedRoute.remove(last)
     if (orderedRoute[0] == 0):
+        orderedRoute.append(last)
+        print("IF")
         return orderedRoute
     elif (orderedRoute[len(orderedRoute)-1] == 0):
-        return orderedRoute[::-1]
+        orderedRoute = orderedRoute[::-1]
+        orderedRoute.append(last)
+        print("ELSE IF")
+        return orderedRoute
     else:
         reordered = []
         pickupPointIndex = orderedRoute.index(0)
-        dist1 = np.linalg.norm(
-            orderedRoute[pickupPointIndex]-orderedRoute[pickupPointIndex-1])
-        dist2 = np.linalg.norm(
-            orderedRoute[pickupPointIndex]-orderedRoute[pickupPointIndex+1])
+        for k, v in indexes.items():
+            if (v == orderedRoute[pickupPointIndex]):
+                cur = np.asarray(c.coordinateMap[k])
+            elif (v == orderedRoute[pickupPointIndex-1]):
+                prev = np.asarray(c.coordinateMap[k])
+            elif (v == orderedRoute[pickupPointIndex+1]):
+                next = np.asarray(c.coordinateMap[k])
+        #print(prev, cur, next)
 
-        if (dist2 < dist1):
+        dist1 = np.linalg.norm(cur-prev)
+        dist2 = np.linalg.norm(cur-next)
+        #print(dist1, dist2)
+        if (dist1 < dist2):  # ABCKUV wrong
+            reordered.append(0)
+            for item in orderedRoute[:pickupPointIndex]:
+                reordered.append(item)
+            for item in reversed(orderedRoute[pickupPointIndex+1:]):
+                reordered.append(item)
+            reordered.append(last)
+        else:
             for item in orderedRoute[pickupPointIndex:]:
                 reordered.append(item)
             for item in orderedRoute[:pickupPointIndex]:
                 reordered.append(item)
-        else:
-            reordered.append(0)
-            for item in orderedRoute[:pickupPointIndex]:
-                reordered.append(item)
-            for item in orderedRoute[pickupPointIndex+1:]:
-                reordered.append(item)
+            reordered.append(last)
         return reordered
 
-# Get Path with Locations
+# Get Path with Locations and Total Distance
 
 
-def get_location_path(route, coords):
+def get_final_path(ordered, locationList):
     output = []
-    k = list(c.coordinateMap.keys())
-    v = list(c.coordinateMap.values())
-    for item in route:
-        output.append(k[v.index(coords[item])])
-    return output
+    totalDistance = 0
+    for index in ordered:
+        output.append(locationList[index])
+    cur = 0
+    nex = 1
+    while (nex < len(output)):
+        temp = get_distance(np.asarray(c.coordinateMap[output[cur]]), np.asarray(
+            c.coordinateMap[output[nex]]))
+        totalDistance = totalDistance + temp
+        cur += 1
+        nex += 1
+
+    return output, totalDistance

@@ -21,14 +21,34 @@ for truck in range(trucksforRoutes):
     # Create a List of Valid Destinations
     validDestinations = helpers.create_destination_list(c.coordinateMap)
     validDestinations.append("END ROUTE SELECTION")
+
     # Ask User to Create Route for Truck
     routeInfo = helpers.get_route_info(truck, validDestinations)
-    # Convert Route List to Coordinates List
-    coordinateRoute = helpers.convert_route_to_coordinates(
-        routeInfo, c.coordinateMap)
-    optimalRoute = helpers.get_shortest_route(coordinateRoute)
-    print(optimalRoute)
-    optimalRouteOrdered = helpers.get_correct_order(optimalRoute)
-    finalRoute = helpers.get_location_path(
-        optimalRouteOrdered, coordinateRoute)
-    print(finalRoute)
+
+    # Get Dictionary of Locations
+    dictLocations = helpers.get_coordinate_location(routeInfo)
+
+    # Get Route Locations as Dict
+    coordinateRoute = helpers.convert_route_to_coordinates(routeInfo)
+
+    # Generate Weighted Graph
+    coordinateGraph = helpers.generate_graph(dictLocations, coordinateRoute)
+
+    # Insert Dummy Node to Graph
+    finalCoordinateGraph = helpers.insert_dummy(
+        routeInfo[0], coordinateGraph, dictLocations)
+
+    # Get the Optimal Route (Including Dummy Node)
+    optimalRoute = helpers.get_shortest_route(
+        finalCoordinateGraph, len(routeInfo)+1)
+    optimalRoute = optimalRoute[optimalRoute != len(routeInfo)]
+
+    # Reorder Route with Starting and End Location (Without Dummy Node)
+    optimalRouteOrdered = helpers.get_correct_order(
+        optimalRoute, len(routeInfo)-1, dictLocations)
+
+    # Get Location Names and Total Path Distance
+    finalRoute, finalDistance = helpers.get_final_path(
+        optimalRouteOrdered, routeInfo)
+
+    print(finalRoute, finalDistance)

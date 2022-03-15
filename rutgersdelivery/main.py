@@ -41,6 +41,7 @@ for truck in range(trucksforRoutes):
     # Get the Optimal Route (Including Dummy Node)
     optimalRoute = helpers.get_shortest_route(
         finalCoordinateGraph, len(routeInfo)+1)
+
     optimalRoute = optimalRoute[optimalRoute != len(routeInfo)]
 
     # Reorder Route with Starting and End Location (Without Dummy Node)
@@ -50,5 +51,3 @@ for truck in range(trucksforRoutes):
     # Get Location Names and Total Path Distance
     finalRoute, finalDistance = helpers.get_final_path(
         optimalRouteOrdered, routeInfo)
-
-    print(finalRoute, finalDistance)

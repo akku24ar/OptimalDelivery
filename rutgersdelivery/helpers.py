@@ -157,10 +157,12 @@ def get_correct_order(route, last, indexes):
     orderedRoute.remove(last)
     if (orderedRoute[0] == 0):
         orderedRoute.append(last)
+        print("IF")
         return orderedRoute
     elif (orderedRoute[len(orderedRoute)-1] == 0):
         orderedRoute = orderedRoute[::-1]
         orderedRoute.append(last)
+        print("ELSE IF")
         return orderedRoute
     else:
         reordered = []

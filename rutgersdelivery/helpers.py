@@ -36,13 +36,6 @@ def create_destination_list(coordinateMap):
         validValues.append(destination)
     return validValues
 
-# Reverse a Map
-
-
-def reverse_destination_map(coordinateMap):
-    invertedCoordinateMap = {v: k for k, v in coordinateMap.items()}
-    return invertedCoordinateMap
-
 # Validate that there enough trucks for routes
 
 

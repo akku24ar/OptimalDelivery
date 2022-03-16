@@ -1,20 +1,29 @@
+from getpass import getpass
+import pyinputplus as pyip
 import constants as c
 import helpers
 
 # Rutgers Delivery System
-
-
 print(c.bcolors.HEADER + "Welcome to the Rutgers Delivery System. Please enter the application password to continue (See README for password)", c.bcolors.ENDC)
 
 # Verify Password
 passwordValidated = False
 while passwordValidated is False:
-    passwordValidated = helpers.validate_password()
+    # Prompt User for Password
+    password = getpass()
+
+    passwordValidated = helpers.validate_password(password)
 
 # Verify Correct Values of Routes and Trucks
 trucksforRoutes = False
 while trucksforRoutes is False:
-    trucksforRoutes = helpers.validate_trucks_and_routes()
+    # Get Truck and Route Information
+    print(c.bcolors.BOLD, "How Many Trucks are Available?", c.bcolors.ENDC)
+    amountOfTrucks = pyip.inputNum()
+    print(c.bcolors.BOLD, "How Many Routes are Required?", c.bcolors.ENDC)
+    amountofRoutes = pyip.inputNum()
+
+    trucksforRoutes = helpers.validate_trucks_and_routes(amountOfTrucks, amountofRoutes)
 
 # Collect Routes and Calculate Shortest Path
 for truck in range(trucksforRoutes):
@@ -41,7 +50,6 @@ for truck in range(trucksforRoutes):
     # Get the Optimal Route (Including Dummy Node)
     optimalRoute = helpers.get_shortest_route(
         finalCoordinateGraph, len(routeInfo)+1)
-
     optimalRoute = optimalRoute[optimalRoute != len(routeInfo)]
 
     # Reorder Route with Starting and End Location (Without Dummy Node)
@@ -51,3 +59,5 @@ for truck in range(trucksforRoutes):
     # Get Location Names and Total Path Distance
     finalRoute, finalDistance = helpers.get_final_path(
         optimalRouteOrdered, routeInfo)
+
+    print(finalRoute, finalDistance)

@@ -1,4 +1,3 @@
-from getpass import getpass
 from passlib.hash import bcrypt
 import pyinputplus as pyip
 import mlrose_hiive as mlrose
@@ -9,9 +8,7 @@ import constants as c
 # Validate password before entering application
 
 
-def validate_password():
-    # Prompt User for Password
-    password = getpass()
+def validate_password(password):
     # Hash Password
     hasher = bcrypt.using(rounds=13)
     # Compare Given Password Hash with Correct Password Hash
@@ -39,12 +36,7 @@ def create_destination_list(coordinateMap):
 # Validate that there enough trucks for routes
 
 
-def validate_trucks_and_routes():
-    print(c.bcolors.BOLD, "How Many Trucks are Available?", c.bcolors.ENDC)
-    amountOfTrucks = pyip.inputNum()
-    print(c.bcolors.BOLD, "How Many Routes are Required?", c.bcolors.ENDC)
-    amountofRoutes = pyip.inputNum()
-
+def validate_trucks_and_routes(amountOfTrucks, amountofRoutes):
     if amountOfTrucks < amountofRoutes:
         print(c.bcolors.FAIL, "There are not enough trucks for the required routes. Please make sure the amount of trucks is equal to or more than the required routes.", c.bcolors.ENDC)
         print(c.bcolors.BOLD,

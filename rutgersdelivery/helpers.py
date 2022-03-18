@@ -3,8 +3,7 @@ import pyinputplus as pyip
 import mlrose_hiive as mlrose
 import numpy as np
 from collections import OrderedDict
-import constants as c
-
+from constants import bcolors,coordinateMap
 # Validate password before entering application
 
 
@@ -16,11 +15,11 @@ def validate_password(password):
         password, "$2b$13$sBfW5r9Cnn6729OtbeY4J.qCqbNieBZt0ZV/dw68c3z9oFjkZPRUi")
     # Print Result Message
     if applicationContinue is False:
-        print(c.bcolors.FAIL, "Unable to verify password. See README for correct password. Retry Below:", c.bcolors.ENDC)
+        print(bcolors.FAIL, "Unable to verify password. See README for correct password. Retry Below:", bcolors.ENDC)
         return False
     else:
-        print(c.bcolors.OKGREEN,
-              "Password Validated. Starting Application...", c.bcolors.ENDC)
+        print(bcolors.OKGREEN,
+              "Password Validated. Starting Application...", bcolors.ENDC)
         print("")
         return True
 
@@ -38,19 +37,19 @@ def create_destination_list(coordinateMap):
 
 def validate_trucks_and_routes(amountOfTrucks, amountofRoutes):
     if amountOfTrucks < amountofRoutes:
-        print(c.bcolors.FAIL, "There are not enough trucks for the required routes. Please make sure the amount of trucks is equal to or more than the required routes.", c.bcolors.ENDC)
-        print(c.bcolors.BOLD,
-              "Please input valid values of trucks and routes to continue", c.bcolors.ENDC)
+        print(bcolors.FAIL, "There are not enough trucks for the required routes. Please make sure the amount of trucks is equal to or more than the required routes.", bcolors.ENDC)
+        print(bcolors.BOLD,
+              "Please input valid values of trucks and routes to continue", bcolors.ENDC)
         print("")
         return False
     elif amountOfTrucks == amountofRoutes:
-        print(c.bcolors.OKGREEN,
-              "Equivalent number of trucks and routes. Continuing...", c.bcolors.ENDC)
+        print(bcolors.OKGREEN,
+              "Equivalent number of trucks and routes. Continuing...", bcolors.ENDC)
         print("")
         return amountOfTrucks
     elif amountofRoutes < amountOfTrucks:
-        print(c.bcolors.OKGREEN, "Sufficient amount of trucks supplied.",
-              amountOfTrucks-amountofRoutes, "trucks will not be used.", c.bcolors.ENDC)
+        print(bcolors.OKGREEN, "Sufficient amount of trucks supplied.",
+              amountOfTrucks-amountofRoutes, "trucks will not be used.", bcolors.ENDC)
         print("")
         return amountofRoutes
 
@@ -58,16 +57,16 @@ def validate_trucks_and_routes(amountOfTrucks, amountofRoutes):
 
 
 def get_route_info(truck, validValues):
-    print(c.bcolors.HEADER, "Getting Route Info for Truck", truck+1, c.bcolors.ENDC)
+    print(bcolors.HEADER, "Getting Route Info for Truck", truck+1, bcolors.ENDC)
     result = ""
     routeList = []
     while result != "END ROUTE SELECTION":
-        print(c.bcolors.WARNING,
-              "When finished, select 'END ROUTE SELECTION'", c.bcolors.ENDC)
+        print(bcolors.WARNING,
+              "When finished, select 'END ROUTE SELECTION'", bcolors.ENDC)
         result = pyip.inputMenu(validValues, lettered=True, numbered=False)
         if result != "END ROUTE SELECTION":
             routeList.append(result)
-        print(c.bcolors.OKCYAN, "Current Route List:", routeList, c.bcolors.ENDC)
+        print(bcolors.OKCYAN, "Current Route List:", routeList, bcolors.ENDC)
         print("")
 
     # Filter results to remove duplicates
@@ -91,7 +90,7 @@ def get_coordinate_location(locations):
 def convert_route_to_coordinates(routeInfo):
     routeCoordinates = {}
     for destination in routeInfo:
-        routeCoordinates[destination] = c.coordinateMap[destination]
+        routeCoordinates[destination] = coordinateMap[destination]
     return routeCoordinates
 
 # Get Distance Between Two Points
@@ -161,11 +160,11 @@ def get_correct_order(route, last, indexes):
         pickupPointIndex = orderedRoute.index(0)
         for k, v in indexes.items():
             if (v == orderedRoute[pickupPointIndex]):
-                cur = np.asarray(c.coordinateMap[k])
+                cur = np.asarray(coordinateMap[k])
             elif (v == orderedRoute[pickupPointIndex-1]):
-                prev = np.asarray(c.coordinateMap[k])
+                prev = np.asarray(coordinateMap[k])
             elif (v == orderedRoute[pickupPointIndex+1]):
-                next = np.asarray(c.coordinateMap[k])
+                next = np.asarray(coordinateMap[k])
         #print(prev, cur, next)
 
         dist1 = np.linalg.norm(cur-prev)
@@ -197,8 +196,8 @@ def get_final_path(ordered, locationList):
     cur = 0
     nex = 1
     while (nex < len(output)):
-        temp = get_distance(np.asarray(c.coordinateMap[output[cur]]), np.asarray(
-            c.coordinateMap[output[nex]]))
+        temp = get_distance(np.asarray(coordinateMap[output[cur]]), np.asarray(
+            coordinateMap[output[nex]]))
         totalDistance = totalDistance + temp
         cur += 1
         nex += 1

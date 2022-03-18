@@ -1,5 +1,10 @@
-from rutgersdelivery import __version__
+from rutgersdelivery.helpers import *
+
+def test_password_true():
+    assert validate_password("rurahrah") == True
 
 
-def test_version():
-    assert __version__ == '0.1.0'
+def test_passsword_false():
+    assert validate_password("peepeepoopoo") == False
+
+

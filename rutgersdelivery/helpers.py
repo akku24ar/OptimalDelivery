@@ -3,7 +3,7 @@ import pyinputplus as pyip
 import mlrose_hiive as mlrose
 import numpy as np
 from collections import OrderedDict
-from constants import bcolors,coordinateMap
+from constants import bcolors
 # Validate password before entering application
 
 
@@ -87,7 +87,7 @@ def get_coordinate_location(locations):
 # Map Route to Coordinates
 
 
-def convert_route_to_coordinates(routeInfo):
+def convert_route_to_coordinates(routeInfo, coordinateMap):
     routeCoordinates = {}
     for destination in routeInfo:
         routeCoordinates[destination] = coordinateMap[destination]
@@ -143,7 +143,7 @@ def get_shortest_route(dist_list, lenList):
 # Reorder Path with Pickup Point and Last Point (Without Dummy Node)
 
 
-def get_correct_order(route, last, indexes):
+def get_correct_order(route, last, indexes, coordinateMap):
     orderedRoute = route.tolist()
     orderedRoute.remove(last)
     if (orderedRoute[0] == 0):
@@ -188,7 +188,7 @@ def get_correct_order(route, last, indexes):
 # Get Path with Locations and Total Distance
 
 
-def get_final_path(ordered, locationList):
+def get_final_path(ordered, locationList, coordinateMap):
     output = []
     totalDistance = 0
     for index in ordered:

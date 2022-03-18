@@ -38,7 +38,7 @@ for truck in range(trucksforRoutes):
     dictLocations = helpers.get_coordinate_location(routeInfo)
 
     # Get Route Locations as Dict
-    coordinateRoute = helpers.convert_route_to_coordinates(routeInfo)
+    coordinateRoute = helpers.convert_route_to_coordinates(routeInfo, c.coordinateMap)
 
     # Generate Weighted Graph
     coordinateGraph = helpers.generate_graph(dictLocations, coordinateRoute)
@@ -54,10 +54,10 @@ for truck in range(trucksforRoutes):
 
     # Reorder Route with Starting and End Location (Without Dummy Node)
     optimalRouteOrdered = helpers.get_correct_order(
-        optimalRoute, len(routeInfo)-1, dictLocations)
+        optimalRoute, len(routeInfo)-1, dictLocations, c.coordinateMap)
 
     # Get Location Names and Total Path Distance
     finalRoute, finalDistance = helpers.get_final_path(
-        optimalRouteOrdered, routeInfo)
+        optimalRouteOrdered, routeInfo, c.coordinateMap)
 
     print(finalRoute, finalDistance)

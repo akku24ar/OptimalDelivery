@@ -1,0 +1,5 @@
+/rutgersdelivery/__pycache__/*
+/tests/__pycache__/*
+/tests/__pycache__.cache/*
+.DS_Store
+__pycache__/*

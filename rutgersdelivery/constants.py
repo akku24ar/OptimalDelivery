@@ -19,7 +19,8 @@ coordinateMap = {"Food Distribution Hub": (5, 5),
                  "Neilson Dining Hall": (7, 3),
                  "Harvest": (8, 4),
                  "Cook Douglass Student Center": (9, 2),
-                 "Truck Depot": (10, 10)}
+                 "Truck Depot": (10, 10),
+                 }
 
 # ANSI escape sequences for pretty font in CLI
 

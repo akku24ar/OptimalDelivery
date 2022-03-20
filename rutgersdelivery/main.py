@@ -47,11 +47,14 @@ for truck in range(trucksforRoutes):
     finalCoordinateGraph = helpers.insert_dummy(
         routeInfo[0], coordinateGraph, dictLocations)
 
+    print(finalCoordinateGraph)
+    print(len(routeInfo)+1)
     # Get the Optimal Route (Including Dummy Node)
     optimalRoute = helpers.get_shortest_route(
         finalCoordinateGraph, len(routeInfo)+1)
     optimalRoute = optimalRoute[optimalRoute != len(routeInfo)]
 
+    print(optimalRoute)
     # Reorder Route with Starting and End Location (Without Dummy Node)
     optimalRouteOrdered = helpers.get_correct_order(
         optimalRoute, len(routeInfo)-1, dictLocations, c.coordinateMap)

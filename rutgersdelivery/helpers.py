@@ -3,7 +3,7 @@ import pyinputplus as pyip
 import mlrose_hiive as mlrose
 import numpy as np
 from collections import OrderedDict
-from constants import bcolors
+from rutgersdelivery.constants import bcolors
 # Validate password before entering application
 
 
@@ -63,7 +63,7 @@ def get_route_info(truck, validValues):
     while result != "END ROUTE SELECTION":
         print(bcolors.WARNING,
               "When finished, select 'END ROUTE SELECTION'", bcolors.ENDC)
-        result = pyip.inputMenu(validValues, lettered=True, numbered=False)
+        result = pyip.inputMenu(validValues, lettered=False, numbered=True)
         if result != "END ROUTE SELECTION":
             routeList.append(result)
         print(bcolors.OKCYAN, "Current Route List:", routeList, bcolors.ENDC)
@@ -114,6 +114,7 @@ def generate_graph(coordinateLocations, coordinateMap):
                 k[i]), coordinateLocations.get(k[v.index(item)]), distance))
         i += 1
     return output
+    
 
 # Add Dummy to Graph
 
@@ -156,6 +157,7 @@ def get_correct_order(route, last, indexes, coordinateMap):
         print("ELSE IF")
         return orderedRoute
     else:
+        print("ELSE")
         reordered = []
         pickupPointIndex = orderedRoute.index(0)
         for k, v in indexes.items():

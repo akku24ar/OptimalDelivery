@@ -217,4 +217,9 @@ def test_get_shortest_route():
     functionOutput2 = functionOutput[functionOutput != (routeLength - 1)]
     assert np.all(correctAnswer == functionOutput2)
 
+def test_route_beautify():
+    route = ['Food Distribution Hub', 'Judys Kitchen', 'Cafe West', 'Halal Guys', 'Hansel n Griddle']
+    assert beatify_route(2, route) == "\033[95m Shortest Route for Truck 2: Food Distribution Hub -> Judys Kitchen -> Cafe West -> Halal Guys ->  Hansel n Griddle \033[0m"
 
+def test_gas_calculation():
+    assert gas_cost(12, 2.20) == "\033[1m Gas Price: $26.4 \033[0m"

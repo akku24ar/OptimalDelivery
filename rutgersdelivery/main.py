@@ -25,7 +25,13 @@ while trucksforRoutes is False:
 
     trucksforRoutes = helpers.validate_trucks_and_routes(amountOfTrucks, amountofRoutes)
 
+# Collect Gas Price
+print(c.bcolors.BOLD, "What is the current price-per-gallon of gas?", c.bcolors.ENDC)
+gasPrice = pyip.inputNum()
+
+
 # Collect Routes and Calculate Shortest Path
+finalRoutes = []
 for truck in range(trucksforRoutes):
     # Create a List of Valid Destinations
     validDestinations = helpers.create_destination_list(c.coordinateMap)
@@ -46,15 +52,12 @@ for truck in range(trucksforRoutes):
     # Insert Dummy Node to Graph
     finalCoordinateGraph = helpers.insert_dummy(
         routeInfo[0], coordinateGraph, dictLocations)
-
-    print(finalCoordinateGraph)
-    print(len(routeInfo)+1)
+    
     # Get the Optimal Route (Including Dummy Node)
     optimalRoute = helpers.get_shortest_route(
         finalCoordinateGraph, len(routeInfo)+1)
     optimalRoute = optimalRoute[optimalRoute != len(routeInfo)]
 
-    print(optimalRoute)
     # Reorder Route with Starting and End Location (Without Dummy Node)
     optimalRouteOrdered = helpers.get_correct_order(
         optimalRoute, len(routeInfo)-1, dictLocations, c.coordinateMap)
@@ -63,4 +66,14 @@ for truck in range(trucksforRoutes):
     finalRoute, finalDistance = helpers.get_final_path(
         optimalRouteOrdered, routeInfo, c.coordinateMap)
 
-    print(finalRoute, finalDistance)
+    # Beautify Route Information and Calculate Gas Prices
+    outputRoute = helpers.beatify_route(truck+1, finalRoute)
+    outputCost = helpers.gas_cost(finalDistance, gasPrice)
+
+    print (outputRoute, outputCost)
+    finalRoutes.append(outputRoute + " " + outputCost)
+
+print()
+print("Final Routes:")
+for route in finalRoutes:
+    print(route)

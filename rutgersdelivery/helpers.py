@@ -44,7 +44,7 @@ def validate_trucks_and_routes(amountOfTrucks, amountofRoutes):
         return False
     elif amountOfTrucks == amountofRoutes:
         print(bcolors.OKGREEN,
-              "Equivalent number of trucks and routes. Continuing...", bcolors.ENDC)
+              "Equivalent number of trucks and routes.", bcolors.ENDC)
         print("")
         return amountOfTrucks
     elif amountofRoutes < amountOfTrucks:
@@ -57,7 +57,8 @@ def validate_trucks_and_routes(amountOfTrucks, amountofRoutes):
 
 
 def get_route_info(truck, validValues):
-    print(bcolors.HEADER, "Getting Route Info for Truck", truck+1, bcolors.ENDC)
+    print(bcolors.UNDERLINE + "Getting Route Info for Truck " + str(truck+1) + bcolors.ENDC)
+    print()
     result = ""
     routeList = []
     while result != "END ROUTE SELECTION":
@@ -69,6 +70,8 @@ def get_route_info(truck, validValues):
         print(bcolors.OKCYAN, "Current Route List:", routeList, bcolors.ENDC)
         print("")
 
+    # Add Truck Depot
+    routeList.append("Truck Depot")
     # Filter results to remove duplicates
     filteredResult = list(OrderedDict.fromkeys(routeList))
     return filteredResult
@@ -149,15 +152,12 @@ def get_correct_order(route, last, indexes, coordinateMap):
     orderedRoute.remove(last)
     if (orderedRoute[0] == 0):
         orderedRoute.append(last)
-        print("IF")
         return orderedRoute
     elif (orderedRoute[len(orderedRoute)-1] == 0):
         orderedRoute = orderedRoute[::-1]
         orderedRoute.append(last)
-        print("ELSE IF")
         return orderedRoute
     else:
-        print("ELSE")
         reordered = []
         pickupPointIndex = orderedRoute.index(0)
         for k, v in indexes.items():
@@ -205,3 +205,20 @@ def get_final_path(ordered, locationList, coordinateMap):
         nex += 1
 
     return output, totalDistance
+
+def beatify_route(truck, finalRoute):
+    counter = 1
+    returnString = ""
+    for destination in finalRoute:
+        if counter==1:
+            returnString = returnString + bcolors.HEADER + " Shortest Route for Truck " + str(truck) + ": " + destination + " -> "
+        elif counter==len(finalRoute):
+            returnString = returnString + " " + destination + " " + bcolors.ENDC
+        else:
+            returnString = returnString + destination + " -> "
+        counter+=1
+    return returnString
+
+def gas_cost(finalDistance, gasPrice):
+    gasCost = round(finalDistance * gasPrice,2)
+    return(bcolors.BOLD + " Gas Price: $" + str(gasCost) + " " + bcolors.ENDC)

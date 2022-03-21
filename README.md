@@ -3,9 +3,7 @@
 Did the front-end.
 Did the back end
 
-Eoin & Awais: Unit Testing
 
-Akku: README Docs
 
 ## Basic Setup
 1. [Install Poetry](https://python-poetry.org/docs/). Don't forget to add the poetry command to your PATH (Instructions to do this is given post-installation)

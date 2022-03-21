@@ -222,4 +222,4 @@ def test_route_beautify():
     assert beatify_route(2, route) == "\033[95m Shortest Route for Truck 2: Food Distribution Hub -> Judys Kitchen -> Cafe West -> Halal Guys ->  Hansel n Griddle \033[0m"
 
 def test_gas_calculation():
-    assert gas_cost(12, 2.20) == "\033[1m Gas Price: $26.4 \033[0m"
+    assert gas_cost(12, 2.20) == 26.4

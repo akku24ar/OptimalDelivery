@@ -150,6 +150,8 @@ def get_shortest_route(dist_list, lenList):
 def get_correct_order(route, last, indexes, coordinateMap):
     orderedRoute = route.tolist()
     orderedRoute.remove(last)
+    if len(orderedRoute) == 0:
+        return []
     if (orderedRoute[0] == 0):
         orderedRoute.append(last)
         return orderedRoute
@@ -221,4 +223,4 @@ def beatify_route(truck, finalRoute):
 
 def gas_cost(finalDistance, gasPrice):
     gasCost = round(finalDistance * gasPrice,2)
-    return(bcolors.BOLD + " Gas Price: $" + str(gasCost) + " " + bcolors.ENDC)
+    return(gasCost)

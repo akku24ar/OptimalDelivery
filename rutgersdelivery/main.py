@@ -3,7 +3,7 @@ import pyinputplus as pyip
 import constants as c
 import helpers
 
-# Rutgers Delivery System
+# Rutgers Delivery System 
 print(c.bcolors.HEADER + "Welcome to the Rutgers Delivery System. Please enter the application password to continue (See README for password)", c.bcolors.ENDC)
 
 # Verify Password

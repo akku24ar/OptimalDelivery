@@ -22,3 +22,12 @@ Did the back end
 **Password is rurahrah**
 
 # How to run the program 
+
+## How to run test cases
+
+## Contributors 
+Akanksha Arun - aa2013@scarletmail.rutgers.edu
+Eshaan Mathur - em919@scarletmail.rutgers.edu
+Eoin O’Hare - eso25@scarletmail.rutgers.edu
+Sidhu Arakkal - ssa150@scarletmail.rutgers.edu
+Mohammad Awais Zubair - maz106@scarletmail.rutgers.edu

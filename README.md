@@ -36,6 +36,7 @@ This is on how to input user values:
    - The input would be added to the truck's current route list
    - If finished, select 'END ROUTE SELECTION' option
    - If not finished, more inputs can be added 
+   - The application outputs Gas price, Optimal distance and Optimal Route
 
 ## How to run test cases
 

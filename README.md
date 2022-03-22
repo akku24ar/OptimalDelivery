@@ -26,8 +26,8 @@ Did the back end
 ## How to run test cases
 
 ## Contributors 
-Akanksha Arun - aa2013@scarletmail.rutgers.edu
-Eshaan Mathur - em919@scarletmail.rutgers.edu
-Eoin O’Hare - eso25@scarletmail.rutgers.edu
-Sidhu Arakkal - ssa150@scarletmail.rutgers.edu
-Mohammad Awais Zubair - maz106@scarletmail.rutgers.edu
+1. Akanksha Arun - aa2013@scarletmail.rutgers.edu
+2. Eshaan Mathur - em919@scarletmail.rutgers.edu
+3. Eoin O’Hare - eso25@scarletmail.rutgers.edu
+4. Sidhu Arakkal - ssa150@scarletmail.rutgers.edu
+5. Mohammad Awais Zubair - maz106@scarletmail.rutgers.edu

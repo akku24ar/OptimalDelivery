@@ -33,6 +33,7 @@ gasPrice = pyip.inputNum()
 # Collect Routes and Calculate Shortest Path
 finalRoutes = []
 finalCost = 0.0
+totalDistance = 0.0
 for truck in range(trucksforRoutes):
     # Create a List of Valid Destinations
     validDestinations = helpers.create_destination_list(c.coordinateMap)
@@ -69,16 +70,19 @@ for truck in range(trucksforRoutes):
 
     # Beautify Route Information and Calculate Gas Prices
     outputRoute = helpers.beatify_route(truck+1, finalRoute)
+    outputDistance = c.bcolors.BOLD + " Distance: " + str(finalDistance) + " " + c.bcolors.ENDC
     routeCost = helpers.gas_cost(finalDistance, gasPrice)
     outputCost = c.bcolors.BOLD + " Gas Price: $" + str(routeCost) + " " + c.bcolors.ENDC
 
-    print (outputRoute, outputCost)
+    print (outputRoute, outputCost, outputDistance)
+    totalDistance += finalDistance
     finalCost+=routeCost
-    finalRoutes.append(outputRoute + " " + outputCost)
+    finalRoutes.append(outputRoute + " " + outputCost + " " + outputDistance)
 
 print()
 print("Final Routes:")
 for route in finalRoutes:
     print(route)
 print("Final Cost: $" + str(round(finalCost,2)))
+print("Final Distance: " + str(totalDistance))
 

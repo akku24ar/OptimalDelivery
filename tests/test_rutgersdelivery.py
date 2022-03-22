@@ -6,11 +6,11 @@ import numpy as np
 def test_version():
     assert __version__ == '0.1.0'
 
-def test_validate_password():
-    password = 'rurahrah'
+def test_validate_password1():
+    password = 'rurahra'
     assert True == validate_password(password)
 
-def test_validate_password():
+def test_validate_password2():
     password = 'password'
     assert False == validate_password(password)
 

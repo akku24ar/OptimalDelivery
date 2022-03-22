@@ -22,6 +22,7 @@ Did the back end
 **Password is rurahrah**
 
 # How to run the program 
+
 This is on how to input user values: 
 
 1. Click on the rutgersdelivery folder and open up the main.py file.
@@ -41,8 +42,10 @@ This is on how to input user values:
 ## How to run test cases
 
 We ran the testcases using pytest. 
-1. Click on the rutgersdelivery folder and open up the main.py file. 
-2. Open up the helpers.py.
+1. Navigate to the 'tests' section of the code
+2. Embedded in this section you need to go to the 'test_rutgersdelivery.py' file
+3. In order to check that our unit testing works, navigate to the command line and type 'poetry run pytest'
+4. If the program outputs 'All tests passed' then the testing is successful.
 
 ## Contributors 
 1. Akanksha Arun - aa2013@scarletmail.rutgers.edu

@@ -22,8 +22,13 @@ Did the back end
 **Password is rurahrah**
 
 # How to run the program 
+This is on how to input user values: 
 
 ## How to run test cases
+
+We ran the testcases using pytest. 
+1. Click on the rutgersdelivery folder and open up the main.py file. 
+2. Open up the helpers.py.
 
 ## Contributors 
 1. Akanksha Arun - aa2013@scarletmail.rutgers.edu

@@ -24,6 +24,19 @@ Did the back end
 # How to run the program 
 This is on how to input user values: 
 
+1. Click on the rutgersdelivery folder and open up the main.py file.
+2. Run this program.
+3. It asks for user input:
+   - Password: 'rurahrah' 
+   - If password is verified, it asks for the number of trucks required. 
+   - Enter the number of trucks available
+   - Enter the number of routes required
+   - If approved (# of truck >= # of routes) , the gas price is displayed
+   - The next input is points of the truck's route
+   - The input would be added to the truck's current route list
+   - If finished, select 'END ROUTE SELECTION' option
+   - If not finished, more inputs can be added 
+
 ## How to run test cases
 
 We ran the testcases using pytest. 

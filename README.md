@@ -31,7 +31,7 @@ This is on how to input user values:
    - If password is verified, it asks for the number of trucks required. 
    - Enter the number of trucks available
    - Enter the number of routes required
-   - If approved (# of truck >= # of routes) , the gas price is displayed
+   - If approved (# of trucks >= # of routes) , the gas price is displayed
    - The next input is points of the truck's route
    - The input would be added to the truck's current route list
    - If finished, select 'END ROUTE SELECTION' option

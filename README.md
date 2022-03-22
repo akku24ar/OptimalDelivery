@@ -8,11 +8,6 @@ All of these components helped us come up with a program that satisfies all the 
 
 # Rutgers Delivery Tool
 
-Did the front-end.
-Did the back end
-
-
-
 ## Basic Setup
 1. [Install Poetry](https://python-poetry.org/docs/). Don't forget to add the poetry command to your PATH (Instructions to do this is given post-installation)
 2. Navigate to the GitHub Project
@@ -38,6 +33,8 @@ This is on how to input user values:
    - If finished, select 'END ROUTE SELECTION' option
    - If not finished, more inputs can be added 
    - The application outputs Gas price, Optimal distance and Optimal Route
+
+![image](https://user-images.githubusercontent.com/31035035/159397453-18e6edfa-0532-45a6-8a85-6f8f7fbc4e0b.png)
 
 ## How to run test cases
 
